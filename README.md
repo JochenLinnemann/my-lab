@@ -4,6 +4,10 @@
 
 see [Windows Server 2016 In-Place Upgrade](./docs/windows-server/in-place-upgrade.md)
 
+## Kubernetes Cluster Setup
+
+see [Kubernetes Cluster Setup using `kubeadm`](./docs/kubernetes/cluster-setup-kubeadm.md)
+
 ## License
 
    Copyright 2025 Jochen Linnemann

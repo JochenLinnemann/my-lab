@@ -2,12 +2,20 @@
 
 ## Windows Server 2016 In-Place Upgrade
 
-_aka Feature Update, [MS Learn](https://learn.microsoft.com/en-us/windows-server/get-started/perform-in-place-upgrade)_
+see [Windows Server 2016 In-Place Upgrade](./docs/windows-server/in-place-upgrade.md)
 
-- Machine: (Bare Metal) Intel Xeon X5650 (x2), 64 GB RAM, 5 TB on SSDs
-- Running `Get-ComputerInfo -Property WindowsProductName`: __Windows Server 2016 Standard__
-- Starting `setup.exe` from downloaded & mounted ISO image
-- Selecting "Windows Server 2022 Standard (Desktop Experience)"
-- Installing ...
-- Duration: ~2 hours
-- Running `Get-ComputerInfo -Property WindowsProductName`: __Windows Server 2022 Standard__
+## License
+
+   Copyright 2025 Jochen Linnemann
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.

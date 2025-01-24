@@ -2,6 +2,8 @@
 
 _using [Talos Linux on Hyper-V](https://www.talos.dev/v1.9/talos-guides/install/virtualized-platforms/hyper-v/)_
 
+__Duration: ~2 hours with success__
+
 ## On Hyper-V Server:
 - Download [`metal-amd64.iso`](https://github.com/siderolabs/talos/releases/)
 - Download [`New-TalosVM.psm1`](https://github.com/nebula-it/New-TalosVM/blob/main/Talos/1.0.0/Talos.psm1)

@@ -2,11 +2,16 @@
 
 _using [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)_
 
+__Duration: ~10 hours without success__
+
+## On Hyper-V Server:
 - Creating 3 hosts with 4 vCores, 8 GB RAM, 32 GB SSDs, using Debian 12.9
     - Under Hyper-V, make sure to deactivate Secure Boot to actually being able to load the ISO image for installation
     - k8s-node-1.k8s.jochenlinnemann.de
     - k8s-node-2.k8s.jochenlinnemann.de
     - k8s-node-3.k8s.jochenlinnemann.de
+
+## On Server VMs (Hyper-V Console):
 - Verifying MAC address and product_uuid uniqueness among nodes
     - ...135
     - ...136
@@ -18,6 +23,8 @@ _using [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/k
     - `sudo systemctl enable ssh`
     - `sudo apt install ufw`
     - `sudo ufw allow ssh`
+
+## On Server VMs (SSH Console):
 - Disabling swap: `sudo swapoff -a`
 - Opening the firewall for [required ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/):
     - `sudo ufw allow 6443/tcp`

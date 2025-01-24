@@ -6,7 +6,8 @@ see [Windows Server 2016 In-Place Upgrade](./docs/windows-server/in-place-upgrad
 
 ## Kubernetes Cluster Setup
 
-see [Kubernetes Cluster Setup using `kubeadm`](./docs/kubernetes/cluster-setup-kubeadm.md)
+- see [Kubernetes Cluster Setup using `kubeadm`](./docs/kubernetes/cluster-setup-kubeadm.md)
+- see [Kubernetes Cluster Setup using `Talos Linux`](./docs/kubernetes/cluster-setup-talos-linux.md)
 
 ## License
 

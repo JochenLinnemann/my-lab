@@ -12,6 +12,7 @@
 ## Kubernetes Experimentation
 
 - see [Simple Web Server Setup](./docs/kubernetes/simple-web-server-setup.md)
+- see [Forgejo Setup using Kompose](./docs/kubernetes/forgejo-kompose-setup.md)
 
 ## License
 

@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: server
+  name: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/forgejo-forgejo: "true"
+        io.kompose.service: server
+    spec:
+      containers:
+        - env:
+            - name: FORGEJO__database__DB_TYPE
+              value: postgres
+            - name: FORGEJO__database__HOST
+              value: db:5432
+            - name: FORGEJO__database__NAME
+              value: forgejo
+            - name: FORGEJO__database__PASSWD
+              value: forgejo
+            - name: FORGEJO__database__USER
+              value: forgejo
+            - name: USER_GID
+              value: "1000"
+            - name: USER_UID
+              value: "1000"
+          image: codeberg.org/forgejo/forgejo:10
+          name: forgejo
+          # ports:
+          #   - containerPort: 3000
+          #     hostPort: 3000
+          #     protocol: TCP
+          #   - containerPort: 22
+          #     hostPort: 222
+          #     protocol: TCP
+          volumeMounts:
+            - mountPath: /data
+              name: server-claim0
+            - mountPath: /etc/timezone
+              name: server-claim1
+              readOnly: true
+            - mountPath: /etc/localtime
+              name: server-claim2
+              readOnly: true
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: 2048Mi
+            requests:
+              cpu: "500m"
+              memory: 1024Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+      restartPolicy: Always
+      volumes:
+        - name: server-claim0
+          persistentVolumeClaim:
+            claimName: server-claim0
+        - name: server-claim1
+          persistentVolumeClaim:
+            claimName: server-claim1
+            readOnly: true
+        - name: server-claim2
+          persistentVolumeClaim:
+            claimName: server-claim2
+            readOnly: true

@@ -11,32 +11,34 @@ fn main() {
     println!("{0}, this is {1}. {1}, this is {0}", "Alice", "Bob");
 
     // As can named arguments.
-    println!("{subject} {verb} {object}",
-             object="the lazy dog",
-             subject="the quick brown fox",
-             verb="jumps over");
+    println!(
+        "{subject} {verb} {object}",
+        object = "the lazy dog",
+        subject = "the quick brown fox",
+        verb = "jumps over"
+    );
 
     // Different formatting can be invoked by specifying the format character
     // after a `:`.
-    println!("Base 10:               {}",   69420); // 69420
+    println!("Base 10:               {}", 69420); // 69420
     println!("Base 2 (binary):       0b{:b}", 69420); // 10000111100101100
     println!("Base 8 (octal):        0o{:o}", 69420); // 207454
     println!("Base 16 (hexadecimal): 0x{:x}", 69420); // 10f2c
 
     // You can right-justify text with a specified width. This will
     // output "    1". (Four white spaces and a "1", for a total width of 5.)
-    println!("{number:>5}", number=1);
+    println!("{number:>5}", number = 1);
 
     // You can pad numbers with extra zeroes,
-    println!("{number:0>5}", number=1); // 00001
-    // and left-adjust by flipping the sign. This will output "10000".
-    println!("{number:0<5}", number=1); // 10000
+    println!("{number:0>5}", number = 1); // 00001
+                                          // and left-adjust by flipping the sign. This will output "10000".
+    println!("{number:0<5}", number = 1); // 10000
 
-    println!("{number:0>5}", number=12); // 00012
-    println!("{number:0<5}", number=12); // 12000
+    println!("{number:0>5}", number = 12); // 00012
+    println!("{number:0<5}", number = 12); // 12000
 
     // You can use named arguments in the format specifier by appending a `$`.
-    println!("{number:0>width$}", number=1, width=5);
+    println!("{number:0>width$}", number = 1, width = 5);
 
     // Rust even checks to make sure the correct number of arguments are used.
     println!("My name is {0}, {1} {0}", "Bond", "James");
@@ -75,6 +77,8 @@ fn main() {
     print_debug();
     print_display();
     print_display_extended();
+    print_display_list();
+    print_display_formatting();
 }
 
 // based on https://doc.rust-lang.org/rust-by-example/hello/print/print_debug.html
@@ -101,7 +105,7 @@ struct Deep(Structure);
 #[derive(Debug)]
 struct Person<'a> {
     name: &'a str,
-    age: u8
+    age: u8,
 }
 
 fn print_debug() {
@@ -110,10 +114,12 @@ fn print_debug() {
 
     // Printing with `{:?}` is similar to with `{}`.
     println!("{:?} months in a year.", 12);
-    println!("{1:?} {0:?} is the {actor:?} name.",
-             "Slater",
-             "Christian",
-             actor="actor's");
+    println!(
+        "{1:?} {0:?} is the {actor:?} name.",
+        "Slater",
+        "Christian",
+        actor = "actor's"
+    );
 
     // `Structure` is printable!
     println!("Now {:?} will print!", Structure(3));
@@ -206,12 +212,14 @@ fn print_display_extended() {
     println!("Debug: {:?}", minmax);
     println!("Debug, pretty: {:#?}", minmax);
 
-    let big_range =   MinMax(-300, 300);
+    let big_range = MinMax(-300, 300);
     let small_range = MinMax(-3, 3);
 
-    println!("The big range is {big} and the small is {small}",
-             small = small_range,
-             big = big_range);
+    println!(
+        "The big range is {big} and the small is {small}",
+        small = small_range,
+        big = big_range
+    );
 
     let point = Point2D { x: 3.3, y: 7.2 };
 
@@ -224,10 +232,138 @@ fn print_display_extended() {
     // requires `fmt::Binary` to be implemented. This will not work.
     // println!("What does Point2D look like in binary: {:b}?", point);
 
-    let complex = Complex { real: 3.3, imag: 7.2 };
+    let complex = Complex {
+        real: 3.3,
+        imag: 7.2,
+    };
 
     println!("Compare complex:");
     println!("Display: {}", complex);
     println!("Debug: {:?}", complex);
     println!("Debug, pretty: {:#?}", complex);
+}
+
+// based on https://doc.rust-lang.org/rust-by-example/hello/print/print_display/testcase_list.html
+
+// Define a structure named `List` containing a `Vec`.
+struct List(Vec<i32>);
+
+impl fmt::Display for List {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        // Extract the value using tuple indexing,
+        // and create a reference to `vec`.
+        let vec = &self.0;
+
+        write!(f, "[")?;
+
+        // Iterate over `v` in `vec` while enumerating the iteration
+        // count in `count`.
+        for (count, v) in vec.iter().enumerate() {
+            // For every element except the first, add a comma.
+            // Use the ? operator to return on errors.
+            if count != 0 {
+                write!(f, ", ")?;
+            }
+            write!(f, "{}: {}", count, v)?;
+        }
+
+        // Close the opened bracket and return a fmt::Result value.
+        write!(f, "]")
+    }
+}
+
+fn print_display_list() {
+    let v = List(vec![1, 2, 3]);
+    println!("{}", v);
+}
+
+// based on https://doc.rust-lang.org/rust-by-example/hello/print/fmt.html
+
+struct City {
+    name: &'static str,
+    // Latitude
+    lat: f32,
+    // Longitude
+    lon: f32,
+}
+
+impl fmt::Display for City {
+    // `f` is a buffer, and this method must write the formatted string into it.
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let lat_c = if self.lat >= 0.0 { 'N' } else { 'S' };
+        let lon_c = if self.lon >= 0.0 { 'E' } else { 'W' };
+
+        // `write!` is like `format!`, but it will write the formatted string
+        // into a buffer (the first argument).
+        write!(
+            f,
+            "{}: {:.3}°{} {:.3}°{}",
+            self.name,
+            self.lat.abs(),
+            lat_c,
+            self.lon.abs(),
+            lon_c
+        )
+    }
+}
+
+#[derive(Debug)]
+struct Color {
+    red: u8,
+    green: u8,
+    blue: u8,
+}
+
+impl fmt::Display for Color {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "RGB ({}, {}, {}) 0x{0:0>2X}{1:0>2X}{2:0>2X}",
+            self.red, self.green, self.blue
+        )
+    }
+}
+
+fn print_display_formatting() {
+    for city in [
+        City {
+            name: "Dublin",
+            lat: 53.347778,
+            lon: -6.259722,
+        },
+        City {
+            name: "Oslo",
+            lat: 59.95,
+            lon: 10.75,
+        },
+        City {
+            name: "Vancouver",
+            lat: 49.25,
+            lon: -123.1,
+        },
+    ] {
+        println!("{}", city);
+    }
+    for color in [
+        Color {
+            red: 128,
+            green: 255,
+            blue: 90,
+        },
+        Color {
+            red: 0,
+            green: 3,
+            blue: 254,
+        },
+        Color {
+            red: 0,
+            green: 0,
+            blue: 0,
+        },
+    ] {
+        // Switch this to use {} once you've added an implementation
+        // for fmt::Display.
+        println!("{:?}", color);
+        println!("{}", color);
+    }
 }

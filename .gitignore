@@ -1,0 +1,3 @@
+src/accessing-java/javalib/target/*.jar
+src/accessing-java/javalib/target/**/*.class
+src/accessing-java/javalib/target/**/*.lst

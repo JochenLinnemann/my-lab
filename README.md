@@ -16,7 +16,10 @@
 
 ## Accessing Java
 
-- ...
+- jni4net supports Java 5
+- IKVM.net supports Java 8
+- see [Java.Interop](https://github.com/dotnet/java-interop)
+- see [JavaToCSharp](https://github.com/paulirwin/JavaToCSharp)
 
 ## License
 

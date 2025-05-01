@@ -1,3 +1,5 @@
 src/accessing-java/javalib/target/*.jar
 src/accessing-java/javalib/target/**/*.class
 src/accessing-java/javalib/target/**/*.lst
+src/accessing-java/csharpapp/bin
+src/accessing-java/csharpapp/obj

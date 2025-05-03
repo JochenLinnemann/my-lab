@@ -1,5 +1,7 @@
-﻿using de.jochenlinnemann.javalib;
+﻿using DE.Jochenlinnemann.Javalib;
+
+Console.WriteLine("Hello, World!");
 
 var api = new API();
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine(api.String);

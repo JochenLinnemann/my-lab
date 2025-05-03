@@ -8,11 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ikvm" Version="8.11.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <IkvmReference Include="../javalib/target/javalib-1.0-SNAPSHOT.jar" />
+    <Reference Include="javalib-net">
+      <HintPath>..\javalib-net\bin\Debug\net9.0-android\javalib-net.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

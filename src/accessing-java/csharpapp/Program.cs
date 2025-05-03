@@ -1,2 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using de.jochenlinnemann.javalib;
+
+var api = new API();
+
 Console.WriteLine("Hello, World!");
